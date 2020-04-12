@@ -1,0 +1,51 @@
+version: '3.6'
+
+services:
+
+  feeder-application:
+    container_name: feeder-application
+    image: truesolo/feeder-application
+    networks:
+      - feeder
+    hostname: feeder-application
+    depends_on:
+      - feeder-mysql
+    ports:
+      - 8081:8081
+    restart: 'no'
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  feeder-authorization:
+    container_name: feeder-authorization
+    image: truesolo/feeder-authorization
+    networks:
+      - feeder
+    hostname: feeder-authorization
+    depends_on:
+      - feeder-mysql
+    ports:
+      - 8082:8082
+    restart: 'no'
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  feeder-statistics:
+    container_name: feeder-statistics
+    image: truesolo/feeder-statistics
+    networks:
+      - feeder
+    hostname: feeder-statistics
+    depends_on:
+      - feeder-mysql
+    ports:
+      - 8083:8083
+    restart: 'no'
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
