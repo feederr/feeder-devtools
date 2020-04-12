@@ -28,6 +28,6 @@ for s in ${SERVICES[@]}; do
     echo "|  _ \  | | | | | | | |  / _' |"
     echo "| |_) | | |_| | | | | | | (_| |"
  echo -n "|____/   \__,_| |_| |_|  \__,_| : $d | #$counter/${#SERVICES[@]} |"
-    ( cd "$PROJECT_DIR$s" && ./mvnw clean package -e -DskipTests && docker build -t "truesolo/feeder-"$s . "${@}" > /dev/null & show_spinner "$!")
+    ( cd "$PROJECT_DIR$s" && ./mvnw clean package -e -DskipTests && docker build -t "feederr/"$s . "${@}" > /dev/null & show_spinner "$!")
     echo " done."
 done

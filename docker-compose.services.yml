@@ -4,7 +4,7 @@ services:
 
   feeder-application:
     container_name: feeder-application
-    image: truesolo/feeder-application
+    image: feederr/application
     networks:
       - feeder
     hostname: feeder-application
@@ -20,7 +20,7 @@ services:
 
   feeder-authorization:
     container_name: feeder-authorization
-    image: truesolo/feeder-authorization
+    image: feederr/authorization
     networks:
       - feeder
     hostname: feeder-authorization
@@ -36,7 +36,7 @@ services:
 
   feeder-statistics:
     container_name: feeder-statistics
-    image: truesolo/feeder-statistics
+    image: feederr/statistics
     networks:
       - feeder
     hostname: feeder-statistics
