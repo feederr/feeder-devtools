@@ -17,7 +17,7 @@ services:
       - feeder
     hostname: feeder-mysql
     volumes:
-      - ./init/mysql:/docker-entrypoint-initdb.d
+      - ../.init/mysql:/docker-entrypoint-initdb.d
       - feeder-mysql-db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
