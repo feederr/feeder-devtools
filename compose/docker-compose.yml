@@ -23,7 +23,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--sql-mode=ALLOW_INVALID_DATES','--default_time_zone=+00:00','--max_connections=1000']
     ports:
-      - 3322:3306
+      - 3322:3306 # host:container
     restart: unless-stopped
     logging:
       options:
