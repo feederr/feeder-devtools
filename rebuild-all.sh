@@ -2,7 +2,7 @@
 
 PROJECT_DIR="../"
 
-SERVICES=("application" "authorization" "statistics")
+SERVICES=("application" "authorization" "statistics" "api-gateway")
 
 for SERVICE in "${SERVICES[@]}"; do
   DIR_PATH=$PROJECT_DIR$SERVICE
