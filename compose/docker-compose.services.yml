@@ -56,6 +56,10 @@ services:
     networks:
       - feeder
     hostname: feeder-api-gateway
+    environment:
+      - application-service=feeder-application
+      - authorization-service=feeder-authorization
+      - statistics-service=feeder-statistics
     ports:
       - 8080:8080
     restart: 'no'
