@@ -49,3 +49,17 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+
+  feeder-api-gateway:
+    container_name: feeder-api-gateway
+    image: feederr/api-gateway
+    networks:
+      - feeder
+    hostname: feeder-api-gateway
+    ports:
+      - 8080:8080
+    restart: 'no'
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
