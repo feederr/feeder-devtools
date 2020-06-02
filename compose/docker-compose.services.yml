@@ -14,10 +14,10 @@ services:
     environment:
       - datasource.host=feeder-mysql
       - datasource.port=3306
-      - bootstrap.servers=localhost:9092
+      - bootstrap.servers=feeder-kafka:9093
     ports:
       - 8081:8081
-    restart: 'no'
+    restart: unless-stopped
     logging:
       options:
         max-size: "10m"
@@ -35,10 +35,10 @@ services:
     environment:
       - datasource.host=feeder-mysql
       - datasource.port=3306
-      - bootstrap.servers=localhost:9092
+      - bootstrap.servers=feeder-kafka:9093
     ports:
       - 8082:8082
-    restart: 'no'
+    restart: unless-stopped
     logging:
       options:
         max-size: "10m"
@@ -56,10 +56,10 @@ services:
     environment:
       - datasource.host=feeder-mysql
       - datasource.port=3306
-      - bootstrap.servers=localhost:9092
+      - bootstrap.servers=feeder-kafka:9093
     ports:
       - 8083:8083
-    restart: 'no'
+    restart: unless-stopped
     logging:
       options:
         max-size: "10m"
@@ -77,7 +77,7 @@ services:
       - statistics-service=feeder-statistics
     ports:
       - 8080:8080
-    restart: 'no'
+    restart: unless-stopped
     logging:
       options:
         max-size: "10m"
