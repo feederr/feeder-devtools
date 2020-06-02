@@ -10,6 +10,7 @@ services:
     hostname: feeder-application
     depends_on:
       - feeder-mysql
+      - feeder-kafka
     environment:
       - datasource.host=feeder-mysql
       - datasource.port=3306
@@ -30,9 +31,11 @@ services:
     hostname: feeder-authorization
     depends_on:
       - feeder-mysql
+      - feeder-kafka
     environment:
       - datasource.host=feeder-mysql
       - datasource.port=3306
+      - bootstrap.servers=localhost:9092
     ports:
       - 8082:8082
     restart: 'no'
@@ -49,6 +52,7 @@ services:
     hostname: feeder-statistics
     depends_on:
       - feeder-mysql
+      - feeder-kafka
     environment:
       - datasource.host=feeder-mysql
       - datasource.port=3306
