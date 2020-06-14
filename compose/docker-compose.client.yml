@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+
+  feeder-client:
+    container_name: feeder-client
+    image: feederr/client
+    hostname: feeder-client
+    networks:
+      - feeder
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

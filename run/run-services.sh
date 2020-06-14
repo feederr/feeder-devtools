@@ -6,5 +6,4 @@ docker-compose \
 -f $COMPOSE_PATH/docker-compose.yml \
 -f $COMPOSE_PATH/docker-compose.infra.yml \
 -f $COMPOSE_PATH/docker-compose.services.yml \
--f $COMPOSE_PATH/docker-compose.client.yml \
-down ${@}
+up -d --force-recreate

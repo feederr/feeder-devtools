@@ -1,0 +1,66 @@
+version: '3.6'
+
+volumes:
+  feeder-mysql-db:
+
+services:
+
+  feeder-mysql:
+    container_name: feeder-mysql
+    image: mysql:5.7.12
+    networks:
+      - feeder
+    hostname: feeder-mysql
+    volumes:
+      - ../.init/mysql:/docker-entrypoint-initdb.d
+      - feeder-mysql-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--sql-mode=ALLOW_INVALID_DATES','--default_time_zone=+00:00','--max_connections=1000']
+    ports:
+      - 3322:3306 # host:container
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  feeder-zookeeper:
+    container_name: feeder-zookeeper
+    image: bitnami/zookeeper:3.6.1
+    networks:
+      - feeder
+    hostname: feeder-zookeeper
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - 2181:2181 # host:container
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  feeder-kafka:
+    container_name: feeder-kafka
+    image: bitnami/kafka:2.5.0
+    networks:
+      - feeder
+    hostname: feeder-kafka
+    depends_on:
+      - feeder-zookeeper
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=feeder-zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9093,EXTERNAL://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://feeder-kafka:9093,EXTERNAL://localhost:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+    ports:
+      - 9092:9092 # host:container
+      - 9093:9093
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
